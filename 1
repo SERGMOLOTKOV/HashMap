@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class PhoneBook {
+    private final Map<String, Set<String>> phoneBook = new HashMap<>();
+
+    public void addContact(String name, String phoneNumber) {
+        phoneBook.computeIfAbsent(name, k -> new HashSet<>()).add(phoneNumber);
+    }
+
+    public void printPhoneBook() {
+        phoneBook.entrySet().stream()
+            .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
+            .forEach(e -> System.out.println(e.getKey() + " " + e.getValue()));
+    }
+
+    public static void main(String[] args) {
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.addContact("Иван", "1234567890");
+        phoneBook.addContact("Иван", "0987654321");
+        phoneBook.addContact("Анна", "1112223333");
+        phoneBook.printPhoneBook();
+    }
+}
